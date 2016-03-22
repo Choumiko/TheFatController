@@ -1604,7 +1604,15 @@ function refreshTrainInfoGui(trains, guiSettings, player)
                     topString = topString .. ": " .. "Moving" -- REPLACE WITH TRANSLAION
                   end
                 elseif trainInfo.lastState == 7 or waiting_forever then
-                  topString = "Station || " .. station
+					--...not sure if this was the best way to do this, the count down seems a bit jerky, but pretty accurate
+				  if trainInfo.lastStation == nil or trainInfo.lastStation ~= trainInfo.currentStation then
+					trainInfo.lastStation = trainInfo.currentStation
+					trainInfo.trainStoppedTick = game.tick
+				  end
+				  
+				  local timeLeftAtStation = math.floor((trainInfo.train.schedule.records[trainInfo.train.schedule.current].time_to_wait - (game.tick - trainInfo.trainStoppedTick)) / 60 + 0.5)
+
+                  topString = "Station || " .. station .. " (" .. timeLeftAtStation .. ")"
                 else
                   topString = "Moving -> " .. station
                 end
