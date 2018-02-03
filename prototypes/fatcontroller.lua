@@ -46,6 +46,7 @@ data:extend({
       item_pickup_distance = 0,
       loot_pickup_distance = 0,
       ticks_to_stay_in_combat = 0,
+      enter_vehicle_distance = 0,
 
       subgroup = "creatures",
       order="z",
